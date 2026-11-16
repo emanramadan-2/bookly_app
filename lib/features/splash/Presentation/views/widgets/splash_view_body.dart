@@ -1,4 +1,5 @@
 import 'package:bookly_app/core/utils/assets.dart';
+import 'package:bookly_app/features/splash/Presentation/views/widgets/sliding_text.dart';
 import 'package:flutter/material.dart';
 
 class SplashViewBody extends StatefulWidget {
@@ -11,23 +12,15 @@ class SplashViewBody extends StatefulWidget {
 class _SplashViewBodyState extends State<SplashViewBody>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
-  late Animation<Offset> slidingAnimation;
+  late Animation<Offset> slidingAnimation; //perent
 
   @override
   void initState() {
     super.initState();
-    animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1),
-    );
-
-    slidingAnimation = Tween<Offset>(
-      begin: const Offset(0, 2),
-      end: Offset.zero,
-    ).animate(animationController);
-
-    animationController.forward();
+    initSlidingAnimation();
   }
+
+  
 
   @override
   void dispose() {
@@ -43,14 +36,24 @@ class _SplashViewBodyState extends State<SplashViewBody>
       children: [
         Image.asset(AssetsData.logo),
         const SizedBox(height: 4),
-        SlideTransition(
-          position: slidingAnimation,
-          child: const Text(
-            'Read free Book',
-            textAlign: TextAlign.center,
-          ),
-        ),
+        SlidingText(slidingAnimation: slidingAnimation),
       ],
     );
+  }
+
+
+// make animation for logo txt //////////////
+  void initSlidingAnimation() {
+    animationController = AnimationController( 
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    );
+    
+    slidingAnimation = Tween<Offset>(
+      begin: const Offset(0, 2),
+      end: Offset.zero,
+    ).animate(animationController);
+    
+    animationController.forward();
   }
 }
