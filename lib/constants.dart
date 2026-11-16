@@ -2,4 +2,5 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 
-const KPrinaryColor=Color(0xff100B20);
+const kPrinaryColor=Color(0xff100B20);
+const kTransationDuration=Duration(milliseconds: 250);
